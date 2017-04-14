@@ -1,0 +1,51 @@
+.container .jumbotron, .container-fluid .jumbotron {
+    padding-right: 60px;
+    padding-left: 60px;
+    border-radius: 6px;
+}
+
+
+
+.jumbotron {
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+h1.bg-primary{
+	    background-color: #87ceeb;
+    height: 1.8em;
+    text-align: center;
+}
+.jumbotron .h1, .jumbotron h1 {
+    font-size: 63px;
+}
+
+
+
+
+
+.navbar-inverse {
+    background-color: #222;
+    border-color: #080808;
+}
+.navbar{
+    border-radius: 4px;
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+}
+.btn-info{
+	height: 29%;
+    width: 197px;
+}
+.container-fluid {
+    padding-right: 31px;
+  padding-left: 68px;
+    margin-right: auto;
+    margin-left: auto;
+    align-content: center;
+    position: absolute;
+}

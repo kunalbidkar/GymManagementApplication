@@ -1,0 +1,23 @@
+h1.bg-primary
+{
+	background-color: #87ceeb; height: 1.8em; text-align: center;
+}
+.container-fluid
+{
+height:20em; margin-left: 20em; margin-top: 10em;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+input[type=submit].btn-block {
+
+	    height: 6em;
+    width: 11em;
+}
+.navbar-nav {
+    margin: 11.5px 178px;
+    padding: 17px;
+    position: initial;
+    float: none;
+}

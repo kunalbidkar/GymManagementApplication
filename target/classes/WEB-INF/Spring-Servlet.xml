@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+      xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+      xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven /> 
+	
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+<!-- 	<resources mapping="/resources/**" location="/resources/" /> -->
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url"
+			value="jdbc:mysql://localhost:3306/kunalnbidkar" />
+		<beans:property name="username" value="root" />
+		<beans:property name="password" value="password" />
+	</beans:bean>
+
+	<!-- Hibernate 4 SessionFactory Bean definition -->
+	<beans:bean id="hibernate4AnnotatedSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="annotatedClasses">
+			<beans:list>
+				<beans:value>com.xpanxion.model.Customer</beans:value>
+				<beans:value>com.xpanxion.model.Events</beans:value>
+				<beans:value>com.xpanxion.model.DietPlan</beans:value>
+				<beans:value>com.xpanxion.model.Employee</beans:value>
+				<beans:value>com.xpanxion.model.Roles</beans:value>
+				<beans:value>com.xpanxion.model.Scheme</beans:value>
+				<beans:value>com.xpanxion.model.Duration</beans:value>
+				<beans:value>com.xpanxion.model.WorkoutType</beans:value>
+				<beans:value>com.xpanxion.model.WorkoutPlan</beans:value>
+				<beans:value>com.xpanxion.model.CustHStats</beans:value>
+				<beans:value>com.xpanxion.model.Fees</beans:value>
+				<beans:value>com.xpanxion.model.UserLogin</beans:value>
+				
+				
+			</beans:list>
+		</beans:property>
+		<beans:property name="hibernateProperties">
+			<beans:props>
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+				</beans:prop>
+				<beans:prop key="hibernate.show_sql">true</beans:prop>
+				<beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	  	<beans:bean id="schemeDao" class="com.xpanxion.DAO.SchemeDaoImpl">
+  <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" /> 
+  </beans:bean>
+   <beans:bean id="schemeService" class="com.xpanxion.service.SchemeServiceImpl">
+  <beans:property name="schemeDao" ref="schemeDao" /> 
+ </beans:bean>
+  
+  	  	<beans:bean id="customerDAO" class="com.xpanxion.DAO.CustomerDAOImpl">
+  <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" /> 
+  </beans:bean>
+   <beans:bean id="customerService" class="com.xpanxion.service.CustomerServiceImpl">
+  <beans:property name="customerDAO" ref="customerDAO" /> 
+ </beans:bean>
+  
+  <beans:bean id="feesDao" class="com.xpanxion.DAO.FeesDaoImpl"> 
+  <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" /> 
+  </beans:bean>
+   <beans:bean id="feesService" class="com.xpanxion.service.FeesServiceImpl">
+  <beans:property name="feesDao" ref="feesDao" /> 
+	</beans:bean>
+	
+	<beans:bean id="userLoginDao" class="com.xpanxion.DAO.UserLoginDaoImpl"> 
+  <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" /> 
+  </beans:bean>
+   <beans:bean id="userLoginService" class="com.xpanxion.service.UserLoginServiceImpl">
+  <beans:property name="userLoginDao" ref="userLoginDao" /> 
+	</beans:bean>
+	
+	
+  
+<beans:bean id="workoutTypeDao" class="com.xpanxion.DAO.WorkoutTypeDaoImpl"> 
+  <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" /> 
+  </beans:bean>
+   <beans:bean id="workoutTypeService" class="com.xpanxion.service.WorkoutTypeServiceImpl">
+  <beans:property name="workoutTypeDao" ref="workoutTypeDao" /> 
+	</beans:bean>
+	
+	 
+<beans:bean id="dietPlanDao" class="com.xpanxion.DAO.DietPlanDaoImpl"> 
+  <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" /> 
+  </beans:bean>
+   <beans:bean id="dietPlanSevice" class="com.xpanxion.service.DietPlanSeviceImpl">
+  <beans:property name="dietPlanDao" ref="dietPlanDao" /> 
+	</beans:bean>
+	
+<context:component-scan base-package="com" />
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	
+	<beans:bean id="viewResolver1" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+  		<beans:property name="order" value="1"/>
+  		<beans:property name="basename" value="views"/>
+	</beans:bean>
+	
+	<beans:bean id="viewResolver2"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  		<beans:property name="order" value="2"/>
+		<beans:property name="prefix" value="/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+</beans:beans>

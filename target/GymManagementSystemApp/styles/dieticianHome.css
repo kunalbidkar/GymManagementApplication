@@ -1,0 +1,18 @@
+h1.bg-primary{
+background-color: #87ceeb; height: 1.8em; text-align: center;
+}
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.btn-info
+{
+    height: 10em;
+   
+    margin-left: 18em;
+}
+input[type=submit].btn-block {
+    width: 46%;
+}
